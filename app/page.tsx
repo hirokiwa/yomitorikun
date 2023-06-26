@@ -86,6 +86,11 @@ const ReadButton = styled.button`
     padding: 0;
     appearance: none;
     margin: 6em 0;
+    &:hover{
+      color: #858585;
+      background-color: #c9feec;
+      cursor: pointer;
+    }
 `
 
 const BodyContentArea = styled.div`
