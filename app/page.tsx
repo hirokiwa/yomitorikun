@@ -3,6 +3,7 @@
 import styled from 'styled-components'
 import styles from './page.module.css'
 import jsQR from 'jsqr';
+import Header from '@/components/Header';
 
 export default function Home() {
   const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
@@ -60,6 +61,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <Header/>
       <ReadButton onClick={() => { getClipboardContents() }}>ひらく</ReadButton>
     </main>
   )
