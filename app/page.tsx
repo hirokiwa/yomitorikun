@@ -49,10 +49,12 @@ export default function Home() {
           const blob = await clipboardItem.getType(type);
           getURLFromQRCodeBlob(blob)
           .then((url) => {
-            window.open(url)
+            if (!window.open(url)) {
+              location.href = url;
+            }
           })
           .catch((error) => {
-            console.error(error);
+            console.error(error)
           });
         }
       }
