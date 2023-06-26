@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import styles from './page.module.css'
 import jsQR from 'jsqr';
 import Header from '@/components/Header';
+import HowToUse from '@/components/HowToUse';
 
 export default function Home() {
   const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
@@ -64,6 +65,7 @@ export default function Home() {
       <Header />
       <BodyContentArea>
         <ReadButton onClick={() => { getClipboardContents() }}>ひらく</ReadButton>
+        <HowToUse/>
       </BodyContentArea>
     </main>
   )
@@ -79,9 +81,10 @@ const ReadButton = styled.button`
     outline: none;
     padding: 0;
     appearance: none;
-    margin: 2em 0;
+    margin: 6em 0;
 `
 
 const BodyContentArea = styled.div`
-  padding-top: 2em;
+  width: 90%;
+  text-align: center;
 `
