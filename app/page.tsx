@@ -40,6 +40,10 @@ export default function Home() {
     });
   }
 
+  const isImageData = (data: Blob): boolean => {
+    return data.type.startsWith('image/');
+  }
+
   async function getClipboardContents() {
     try {
       const clipboardItems = await navigator.clipboard.read();
@@ -47,6 +51,11 @@ export default function Home() {
       for (const clipboardItem of clipboardItems) {
         for (const type of clipboardItem.types) {
           const blob = await clipboardItem.getType(type);
+          const isImage = isImageData(blob);
+          if (!isImage) {
+            alert("クリップボードにQRコード画像をコピーしてください。");
+            return
+          }
           getURLFromQRCodeBlob(blob)
           .then((url) => {
             if (!window.open(url)) {
@@ -54,7 +63,7 @@ export default function Home() {
             }
           })
           .catch((error) => {
-            console.error(error)
+            alert("QRコードを検出できませんでした。");
           });
         }
       }
