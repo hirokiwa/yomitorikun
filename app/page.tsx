@@ -5,6 +5,7 @@ import styles from './page.module.css'
 import jsQR from 'jsqr';
 import Header from '@/components/Header';
 import HowToUse from '@/components/HowToUse';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
@@ -67,6 +68,7 @@ export default function Home() {
         <ReadButton onClick={() => { getClipboardContents() }}>ひらく</ReadButton>
         <HowToUse/>
       </BodyContentArea>
+      <Footer/>
     </main>
   )
 }
