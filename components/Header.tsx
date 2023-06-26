@@ -14,7 +14,7 @@ export default Header;
 
 const HeaderTop = styled.div`
     color: #858585;
-    background-color: #8bdfc1;
+    border-bottom: solid 1px #acacac;
     padding: 0;
     margin: 0;
     width: 100%;

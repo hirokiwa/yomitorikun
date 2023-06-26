@@ -61,12 +61,27 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Header/>
-      <ReadButton onClick={() => { getClipboardContents() }}>ひらく</ReadButton>
+      <Header />
+      <BodyContentArea>
+        <ReadButton onClick={() => { getClipboardContents() }}>ひらく</ReadButton>
+      </BodyContentArea>
     </main>
   )
 }
 
 const ReadButton = styled.button`
-  
+    width: 15em;
+    height: 3em;
+    font-size: medium;
+    color: #858585;
+    background-color: #8bdfc1;
+    border: none;
+    outline: none;
+    padding: 0;
+    appearance: none;
+    margin: 2em 0;
+`
+
+const BodyContentArea = styled.div`
+  padding-top: 2em;
 `
