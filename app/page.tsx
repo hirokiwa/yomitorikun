@@ -6,6 +6,7 @@ import jsQR from 'jsqr';
 import Header from '@/components/Header';
 import HowToUse from '@/components/HowToUse';
 import Footer from '@/components/Footer';
+import AccessHistory from '@/components/AccessHistory';
 
 export default function Home() {
   const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
@@ -68,7 +69,7 @@ export default function Home() {
         }
       }
     } catch (err) {
-      console.error(err);
+      alert("クリップボードにQRコード画像をコピーしてください。");
     }
   }
 
@@ -77,6 +78,7 @@ export default function Home() {
       <Header />
       <BodyContentArea>
         <ReadButton onClick={() => { getClipboardContents() }}>ひらく</ReadButton>
+        <AccessHistory/>
         <HowToUse/>
       </BodyContentArea>
       <Footer/>
