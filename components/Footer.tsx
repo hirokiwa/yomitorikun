@@ -3,6 +3,7 @@ import { styled } from "styled-components"
 const Footer = () => {
     return (
         <FooterTop>
+            <div>コピペでQR読み取りくん</div>
             <div>&copy; hiroki 2023</div>
         </FooterTop>
     )
