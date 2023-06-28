@@ -1,6 +1,11 @@
 interface urlHistory {
     url: string
-    date: Date
+}
+
+interface historyClient {
+    url: string;
+    title: string;
+    favicon: string | undefined;
 }
 
 interface dataFromLocalStrage {
