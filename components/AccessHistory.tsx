@@ -1,14 +1,27 @@
 import { styled } from "styled-components";
 
-const AccessHistory = () => {
+interface Props {
+    history: urlHistory[];
+}
+
+const AccessHistory = ({history}:Props) => {
 
     return (
         <AccessHistoryTop>
             <SubTitle>履歴</SubTitle>
             <AccessHistoryLists>
-                <AccessHistoryElement>google</AccessHistoryElement>
+                {
+                    history.length !== 0
+                    ? history.map((data) => {
+                        return(
+                            <AccessHistoryElement>
+                                <AccessHistoryLink href={data.url} target="_blank">{data.url}</AccessHistoryLink>
+                            </AccessHistoryElement>
+                    )})
+                    : <AccessHistoryElement>履歴はありません。</AccessHistoryElement>
+                }
             </AccessHistoryLists>
-        </AccessHistoryTop>  
+        </AccessHistoryTop>
     );
 }
 
@@ -35,4 +48,13 @@ const AccessHistoryElement = styled.li`
     color: #858585;
     margin: 1em;
     list-style: none;
+`
+const AccessHistoryLink = styled.a`
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    &:hover{
+        color: #60c7a3;
+    }
 `
