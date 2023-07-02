@@ -90,7 +90,6 @@ const ReadButton = styled.button`
     color: #858585;
     background-color: #8bdfc1;
     border: none;
-    outline: none;
     padding: 0;
     appearance: none;
     margin: 6em 0;
