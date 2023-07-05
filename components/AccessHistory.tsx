@@ -5,6 +5,52 @@ interface Props {
 }
 
 const AccessHistory = ({history}:Props) => {
+    const copyToClipboard = (text: string): void => {
+        navigator.clipboard.writeText(text)
+        .then(() => {
+            return;
+        })
+        .catch((error) => {
+            alert("クリップボードにコピーできませんでした。");
+        });
+    };
+
+    const encodeSymbols = (input: string): string => {
+        const symbolsToEncode = [';', '/', '?', ':', '@', '&', '=', '+', '$', ',', '%', '#'];
+        let encodedString = '';
+      
+        for (let i = 0; i < input.length; i++) {
+            const char = input[i];
+            if (symbolsToEncode.includes(char)) {
+                encodedString += encodeURIComponent(char);
+            } else {
+                encodedString += char;
+            }
+        }
+        return encodedString;
+    }
+
+    const getSiteData = async (url: string) => {
+        try {
+            const response = await fetch(`/api/site/${encodeSymbols(url)}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          console.log(data);
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
+    history.map((data) => {
+        getSiteData(data.url);
+    })
 
     return (
         <AccessHistoryTop>
@@ -19,7 +65,9 @@ const AccessHistory = ({history}:Props) => {
                         return(
                             <AccessHistoryElement key = { index }>
                                 <AccessHistoryLink href={data.url} target="_blank">{data.url}</AccessHistoryLink>
+                                <CoppyIconWrapper onClick={() => { copyToClipboard(data.url) }}>
                                     <span className="material-symbols-outlined">content_copy</span>
+                                </CoppyIconWrapper>
                             </AccessHistoryElement>
                     )})
                     : <AccessHistoryElement>履歴はありません。</AccessHistoryElement>

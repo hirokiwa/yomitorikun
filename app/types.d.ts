@@ -11,3 +11,11 @@ interface historyClient {
 interface dataFromLocalStrage {
     history:urlHistory[]
 }
+
+interface paramsData {
+    url: string
+  }
+  
+interface paramsType {
+params: paramsData
+}
