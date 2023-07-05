@@ -3,12 +3,15 @@ import { styled } from "styled-components";
 const HowToUse = () => {
     return (
         <HowToUseTop>
-            <SubTitle>使い方</SubTitle>
+            <SubTitle>
+            <span className="material-symbols-outlined">help</span>
+                使い方
+            </SubTitle>
             <HowToUseLists>
                 <HotToUseElement>クリップボードにQRコード画像をコピー</HotToUseElement>
-                <HotToUseElement>「ひらく」ボタンを押してサイトオープン！！</HotToUseElement>
+                <HotToUseElement>「読み取り」ボタンを押して開く</HotToUseElement>
             </HowToUseLists>
-        </HowToUseTop>  
+        </HowToUseTop>
     );
 }
 
@@ -25,6 +28,9 @@ const HowToUseTop = styled.div`
 const SubTitle = styled.h2`
     border-bottom: solid 1px #acacac;
     color: #858585;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 const HowToUseLists = styled.ol`
     text-align: left;
