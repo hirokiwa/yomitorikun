@@ -12,9 +12,9 @@ const AccessHistory = ({history}:Props) => {
             <AccessHistoryLists>
                 {
                     history.length !== 0
-                    ? history.map((data) => {
+                    ? history.map((data, index) => {
                         return(
-                            <AccessHistoryElement>
+                            <AccessHistoryElement key = { index }>
                                 <AccessHistoryLink href={data.url} target="_blank">{data.url}</AccessHistoryLink>
                             </AccessHistoryElement>
                     )})
