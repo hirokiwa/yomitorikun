@@ -77,7 +77,18 @@ const ReadSection = ({history, setHistory}: Props) => {
         }
     }
     return (
-        <ReadButton onClick={() => { getClipboardContents() }}>ひらく</ReadButton>
+        <ReadButton
+            onClick={() => { getClipboardContents() }}
+            tabIndex={1}
+        >
+            <span
+                className="material-symbols-outlined"
+                style={{
+                    marginRight:"0.5em",
+                }}
+            >qr_code_scanner</span>
+            読み取り
+        </ReadButton>
     )
 }
 
@@ -86,13 +97,16 @@ export default ReadSection;
 const ReadButton = styled.button`
     width: 15em;
     height: 3em;
-    font-size: medium;
+    font-size: larger;
     color: #858585;
     background-color: #8bdfc1;
     border: none;
     padding: 0;
     appearance: none;
-    margin: 6em 0;
+    margin: 6em auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover{
         color: #858585;
         background-color: #c9feec;
