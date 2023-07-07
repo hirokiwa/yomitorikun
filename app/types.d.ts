@@ -3,8 +3,8 @@ interface urlHistory {
 }
 
 interface historyClient {
-    url: string;
-    title: string;
+    url: string | undefined;
+    title: string | undefined;
     favicon: string | undefined;
 }
 

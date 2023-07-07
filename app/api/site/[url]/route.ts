@@ -15,6 +15,6 @@ export async function GET(request: Request, params: paramsType) {
 
     return NextResponse.json({ title: title, favicon: faviconUrl });
   } catch (error) {
-    return NextResponse.json({ title: "ERROR", favicon: "ERROR" });
+    return NextResponse.json({ title: undefined, favicon: undefined });
   }
 }

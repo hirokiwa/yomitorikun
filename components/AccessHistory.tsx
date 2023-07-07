@@ -1,56 +1,11 @@
 import { styled } from "styled-components";
+import SccessHistoryElement from "./AccessHistoryElement";
 
 interface Props {
     history: urlHistory[];
 }
 
-const AccessHistory = ({history}:Props) => {
-    const copyToClipboard = (text: string): void => {
-        navigator.clipboard.writeText(text)
-        .then(() => {
-            return;
-        })
-        .catch((error) => {
-            alert("クリップボードにコピーできませんでした。");
-        });
-    };
-
-    const encodeSymbols = (input: string): string => {
-        const symbolsToEncode = [';', '/', '?', ':', '@', '&', '=', '+', '$', ',', '%', '#'];
-        let encodedString = '';
-      
-        for (let i = 0; i < input.length; i++) {
-            const char = input[i];
-            if (symbolsToEncode.includes(char)) {
-                encodedString += encodeURIComponent(char);
-            } else {
-                encodedString += char;
-            }
-        }
-        return encodedString;
-    }
-
-    const getSiteData = async (url: string) => {
-        try {
-            const response = await fetch(`/api/site/${encodeSymbols(url)}/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-          console.log(data);
-        } catch (error) {
-          console.error(error);
-        }
-    }
-
-    history.map((data) => {
-        getSiteData(data.url);
-    })
+const AccessHistory = ({ history }: Props) => {
 
     return (
         <AccessHistoryTop>
@@ -63,12 +18,11 @@ const AccessHistory = ({history}:Props) => {
                     history.length !== 0
                     ? history.map((data, index) => {
                         return(
-                            <AccessHistoryElement key = { index }>
-                                <AccessHistoryLink href={data.url} target="_blank">{data.url}</AccessHistoryLink>
-                                <CoppyIconWrapper onClick={() => { copyToClipboard(data.url) }}>
-                                    <span className="material-symbols-outlined">content_copy</span>
-                                </CoppyIconWrapper>
-                            </AccessHistoryElement>
+                            <AccessHistoryElementWraper key = { `history${index}` }>
+                                <SccessHistoryElement
+                                    url = {data.url}
+                                />
+                            </AccessHistoryElementWraper>
                     )})
                     : <AccessHistoryElement>履歴はありません。</AccessHistoryElement>
                 }
@@ -101,37 +55,11 @@ const AccessHistoryElement = styled.li`
     color: #858585;
     margin: 1em;
     list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 `
 
-const NoHistoryElement = styled.li`
+const AccessHistoryElementWraper = styled.li`
     color: #858585;
     margin: 1em;
     list-style: none;
     text-align: center;
-`
-
-const AccessHistoryLink = styled.a`
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: small;
-    &:hover{
-        color: #bee8d9;
-}
-`
-const CoppyIconWrapper = styled.button`
-    margin-left: auto;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    appearance: none;
-    color: #858585;
-    &:hover{
-        background-color: #e6e6e6;
-}
 `
