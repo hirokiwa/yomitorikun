@@ -18,7 +18,7 @@ const AccessHistory = ({ history }: Props) => {
                     history.length !== 0
                     ? history.map((data, index) => {
                         return(
-                            <AccessHistoryElementWraper key = { `history${index}` }>
+                            <AccessHistoryElementWraper key = { `history${history.length - index}` }>
                                 <SccessHistoryElement
                                     url = {data.url}
                                 />
