@@ -19,3 +19,8 @@ interface paramsData {
 interface paramsType {
 params: paramsData
 }
+
+interface copiedTimerType {
+    copied: boolean;
+    timerId: number | undefined;
+}
