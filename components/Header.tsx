@@ -3,9 +3,11 @@ import { styled } from "styled-components";
 const Header = () => {
     return (
         <HeaderTop>
-            <ProductTitle>
-                コピペでQR読み取りくん
-            </ProductTitle>
+            <TitleLink href="/">
+                <ProductTitle>
+                    コピペでQR読み取りくん
+                </ProductTitle>
+            </TitleLink>
         </HeaderTop>
     );
 }
@@ -19,8 +21,15 @@ const HeaderTop = styled.div`
     margin: 0;
     width: 100%;
     padding: 1em;
-`
+    `
 
 const ProductTitle = styled.h1`
     font-size: 24px;
+    display: inline;
+`
+
+const TitleLink = styled.a`
+    &:hover{
+        color: #cfcfcf;
+    }
 `
