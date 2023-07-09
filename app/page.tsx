@@ -9,7 +9,7 @@ import AccessHistory from '@/components/AccessHistory';
 import ReadSection from '@/components/ReadSection';
 import { useEffect, useState } from 'react';
 
-export default function Home() {
+const Home = () => {
   const [history, setHistory] = useState<urlHistory[]>([]);
   
   useEffect(() => {
@@ -55,6 +55,8 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home;
 
 const BodyContentAreaWrapper = styled.div`
   display: grid;
