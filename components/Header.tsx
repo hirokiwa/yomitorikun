@@ -3,7 +3,10 @@ import { styled } from "styled-components";
 const Header = () => {
     return (
         <HeaderTop>
-            <TitleLink href="/">
+            <TitleLink
+                href="/"
+                tabIndex={32767}
+            >
                 <ProductTitle>
                     コピペでQR読み取りくん
                 </ProductTitle>
