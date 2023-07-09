@@ -36,8 +36,15 @@ const SccessHistoryElement = ({ url }: Props) => {
   
   return (
     <SccessHistoryElementTop>
-      <AccessHistoryLink href={url} target="_blank">{ url }</AccessHistoryLink>
-      <CopyIconWrapper onClick={() => { copyToClipboard(url) }}>
+      <AccessHistoryLink
+        href={url}
+        target="_blank"
+        tabIndex={2}
+      >{url}</AccessHistoryLink>
+      <CopyIconWrapper
+        onClick={() => { copyToClipboard(url) }}
+        tabIndex={2}
+      >
         <span className="material-symbols-outlined">{
           copiedTimer.copied
             ? "library_add_check"
