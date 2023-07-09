@@ -17,7 +17,7 @@ interface paramsData {
   }
   
 interface paramsType {
-params: paramsData
+    params: paramsData
 }
 
 interface copiedTimerType {
