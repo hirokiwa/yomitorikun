@@ -7,32 +7,11 @@ import HowToUse from '@/components/HowToUse';
 import Footer from '@/components/Footer';
 import AccessHistory from '@/components/AccessHistory';
 import ReadSection from '@/components/ReadSection';
-import { useEffect, useState } from 'react';
+import useHome from '@/hooks/useHome';
 
 const Home = () => {
-  const [history, setHistory] = useState<urlHistory[]>([]);
-  
-  useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_LOCAL_STORAGE_KEY) {
-      return
-    }
-    const localString = localStorage.getItem(process.env.NEXT_PUBLIC_LOCAL_STORAGE_KEY);
-    if (!localString) {
-      return;
-    }
-    const localData = JSON.parse(localString) as dataFromLocalStrage;
-    setHistory(localData.history)
-  }, [])
-  
-  useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_LOCAL_STORAGE_KEY) {
-      return
-    }
-    const localString = JSON.stringify({
-      history: history
-    })
-    localStorage.setItem(process.env.NEXT_PUBLIC_LOCAL_STORAGE_KEY, localString);
-  }, [history])
+  const { history, setHistory } = useHome();
+
   return (
     <main className={styles.main}>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
