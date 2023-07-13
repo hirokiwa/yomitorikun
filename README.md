@@ -1,6 +1,9 @@
 ## コピペでQR読み取りくん
 **クリップボードにコピーしたQRコード画像を瞬時に読み取る便利ツール**
 
+
+<img width="600" alt="image" src="https://github.com/hirokiwa/qr-code-reader/assets/89170014/a71f41a8-cb03-4d62-a991-c289a3ccbd0f">
+
 PCの画面に表示されたQRコードを読み取るために渋々スマートフォンを取り出しているあなたを救います。
 
 ## 使い方
