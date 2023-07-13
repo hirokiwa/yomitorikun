@@ -39,7 +39,7 @@ const useAccessHistoryElement = ({ url }:{ url: string}): {
   };
 
   const encodeSymbols = (input: string): string => {
-    const symbolsToEncode = [';', '/', '?', ':', '@', '&', '=', '+', '$', ',', '%', '#'];
+    const symbolsToEncode = [';', '/', '?', ':', '@', '&', '=', '+', '$', ',', '%', '#', '.'];
     let encodedString = '';
   
     for (let i = 0; i < input.length; i++) {
