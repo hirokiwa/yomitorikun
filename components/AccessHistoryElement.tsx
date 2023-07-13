@@ -1,4 +1,4 @@
-import { useState } from "react";
+import useAccessHistoryElement from "@/hooks/useAccessHistoryElement";
 import { styled } from "styled-components"
 
 interface Props {
@@ -6,33 +6,10 @@ interface Props {
 }
 
 const SccessHistoryElement = ({ url }: Props) => {
-  const [copiedTimer, setCopiedTimer] = useState<copiedTimerType>({
-    copied: false,
-    timerId: undefined,
-  });
-
-  const copyToClipboard = (text: string): void => {
-    if (copiedTimer.timerId) {
-      window.clearTimeout(copiedTimer.timerId);
-    }
-
-    const copyTimerReset = () => {
-      setCopiedTimer({
-        copied: false,
-        timerId: undefined
-      })
-    }
-    
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        setCopiedTimer({
-          copied: true,
-          timerId: window.setTimeout(copyTimerReset, 2000)
-      })})
-      .catch((error) => {
-        alert("クリップボードにコピーできませんでした。");
-      })
-  };
+  const { copiedTimer, copyToClipboard }: {
+    copiedTimer: copiedTimerType;
+    copyToClipboard: (text: string) => void;
+  } = useAccessHistoryElement();
   
   return (
     <SccessHistoryElementTop>
