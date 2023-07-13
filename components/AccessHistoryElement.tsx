@@ -1,5 +1,6 @@
 import useAccessHistoryElement from "@/hooks/useAccessHistoryElement";
 import { styled } from "styled-components"
+import { ContentCopyIcon, LibraryAddCheckIcon } from "./SvgHandler";
 
 interface Props {
   url: string;
@@ -22,11 +23,11 @@ const SccessHistoryElement = ({ url }: Props) => {
         onClick={() => { copyToClipboard(url) }}
         tabIndex={2}
       >
-        <span className="material-symbols-outlined">{
+        {
           copiedTimer.copied
-            ? "library_add_check"
-            : "content_copy"
-        }</span>
+          ? <LibraryAddCheckIcon width="28" height="28" fill="#858585" />
+          : <ContentCopyIcon width="28" height="28" fill="#858585" />
+        }
         <CopiedMessage
           copied={ +copiedTimer.copied as 0 | 1 }
         >Copied!!</CopiedMessage>

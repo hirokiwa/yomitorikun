@@ -39,3 +39,31 @@ export function QrCodeScannerIcon ({ height, width, fill }:iconSetting) {
     </svg>
   );
 }
+
+export function LibraryAddCheckIcon ({ height, width, fill }:iconSetting) {
+  return (
+    <svg
+      xmlns = "http://www.w3.org/2000/svg"
+      height = { height ? height : "48" }
+      viewBox = "0 -960 960 960"
+      width = { width ? width : "48" }
+      fill = { fill? fill : "#858585" }
+    >
+      <path xmlns="http://www.w3.org/2000/svg" d="m490-383 228-228-42-41-185 186-97-97-42 42 138 138ZM260-200q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm0-60h560v-560H260v560ZM140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-740v560-560Z"/>
+    </svg>
+  );
+}
+
+export function ContentCopyIcon ({ height, width, fill }:iconSetting) {
+  return (
+    <svg
+      xmlns = "http://www.w3.org/2000/svg"
+      height = { height ? height : "48" }
+      viewBox = "0 -960 960 960"
+      width = { width ? width : "48" }
+      fill = { fill? fill : "#858585" }
+    >
+      <path xmlns="http://www.w3.org/2000/svg" d="M180-81q-24 0-42-18t-18-42v-603h60v603h474v60H180Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h440q24 0 42 18t18 42v560q0 24-18 42t-42 18H300Zm0-60h440v-560H300v560Zm0 0v-560 560Z"/>
+    </svg>
+  );
+}
