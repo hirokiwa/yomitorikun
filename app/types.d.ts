@@ -24,3 +24,9 @@ interface copiedTimerType {
     copied: boolean;
     timerId: number | undefined;
 }
+
+interface iconSetting {
+    height?: string;
+    width?: string;
+    fill?: string;
+}
