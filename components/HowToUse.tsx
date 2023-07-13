@@ -1,10 +1,11 @@
 import { styled } from "styled-components";
+import { HelpIcon } from "./SvgHandler";
 
 const HowToUse = () => {
     return (
         <HowToUseTop>
             <SubTitle>
-            <span className="material-symbols-outlined">help</span>
+                <HelpIcon width="28" height="28" fill="#858585"/>
                 使い方
             </SubTitle>
             <HowToUseLists>
