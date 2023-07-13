@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
-import SccessHistoryElement from "./AccessHistoryElement";
+// import SccessHistoryElement from "./AccessHistoryElement";
 import HistoryIcon from "./SvgHandler";
+import AccessHistoryElementForFetch from "./AccessHistoryElementForFetching";
 
 interface Props {
     history: urlHistory[];
@@ -20,7 +21,7 @@ const AccessHistory = ({ history }: Props) => {
                     ? history.map((data, index) => {
                         return(
                             <AccessHistoryElementWraper key = { `history${history.length - index}` }>
-                                <SccessHistoryElement
+                                <AccessHistoryElementForFetch
                                     url = {data.url}
                                 />
                             </AccessHistoryElementWraper>
