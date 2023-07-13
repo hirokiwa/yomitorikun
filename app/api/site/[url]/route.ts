@@ -15,6 +15,6 @@ export async function GET(request: Request, params: paramsType) {
   //   return NextResponse.json({ title: title, favicon: faviconUrl });
   // } catch (error) {
     // }
-    const url = params.params.url
-    return NextResponse.json({ title: url, favicon: url });
+    // const url = params.params.url
+    return NextResponse.json({ title: "hello", favicon: "hello" });
 }
