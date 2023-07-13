@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import SccessHistoryElement from "./AccessHistoryElement";
+import HistoryIcon from "./SvgHandler";
 
 interface Props {
     history: urlHistory[];
@@ -10,7 +11,7 @@ const AccessHistory = ({ history }: Props) => {
     return (
         <AccessHistoryTop>
             <SubTitle>
-            <span className="material-symbols-outlined">history</span>
+                <HistoryIcon width="28" height="28" fill="#858585"/>
                 履歴
             </SubTitle>
             <AccessHistoryLists>
