@@ -1,6 +1,7 @@
 import useReadSection from "@/hooks/useReadSection";
 import { Dispatch, SetStateAction } from "react";
 import { styled } from "styled-components";
+import { QrCodeScannerIcon } from "./SvgHandler";
 
 interface Props {
     history: urlHistory[];
@@ -15,13 +16,8 @@ const ReadSection = ({ history, setHistory }: Props) => {
             onClick={() => { getClipboardContents() }}
             tabIndex={1}
         >
-            <span
-                className="material-symbols-outlined"
-                style={{
-                    marginRight:"0.5em",
-                }}
-            >qr_code_scanner</span>
-            読み取り
+            <QrCodeScannerIcon width="24" height="24" fill="#858585" />
+            <ButtonText>読み取り</ButtonText>
         </ReadButton>
     )
 }
@@ -46,4 +42,7 @@ const ReadButton = styled.button`
         background-color: #c9feec;
         cursor: pointer;
     }
+`
+const ButtonText = styled.div`
+    margin-left: 0.5em;
 `
