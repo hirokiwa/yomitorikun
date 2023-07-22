@@ -15,30 +15,29 @@ const useReadSection = ({ history, setHistory }: {
   history: urlHistory[];
   setHistory: Dispatch<SetStateAction<urlHistory[]>>;
 }) => {
-  
-const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const QRImage = new Image();
-      QRImage.onload = () => {
-        try {
-          const qrCode = initQrCode( QRImage );
-          if (qrCode) {
-            resolve(qrCode.data);
-          } else {
-            reject(new Error('No QR code found in the image.'));
+  const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const QRImage = new Image();
+        QRImage.onload = () => {
+          try {
+            const qrCode = initQrCode( QRImage );
+            if (qrCode) {
+              resolve(qrCode.data);
+            } else {
+              reject(new Error('No QR code found in the image.'));
+            }
+          } catch (error) {
+            reject(error);
           }
-        } catch (error) {
-          reject(error);
         }
+        QRImage.src = event.target?.result as string;
       }
-      QRImage.src = event.target?.result as string;
-    }
-    reader.onerror = (error) => {
-      reject(error);
-    }
-    reader.readAsDataURL(blob);
+      reader.onerror = (error) => {
+        reject(error);
+      }
+      reader.readAsDataURL(blob);
   })}
 
   const isImageData = (data: Blob): boolean => {
@@ -78,7 +77,6 @@ const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
       alert("クリップボードにQRコード画像をコピーしてください。");
     }
   }
- 
   return { getClipboardContents };
 }
 
