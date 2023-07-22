@@ -51,26 +51,24 @@ const useReadSection = ({ history, setHistory }: {
         for (const type of clipboardItem.types) {
           const blob = await clipboardItem.getType(type);
           const isImage = isImageData(blob);
-          if (!isImage) {
-            alert("クリップボードにQRコード画像をコピーしてください。");
-            return
-          }
-          getURLFromQRCodeBlob(blob)
-          .then((url) => {
-            if (history.length === 0) {
-              setHistory([{ url: url }, ...history])
-            } else {
-              if (history[0].url !== url) {
+          if (isImage) {
+            getURLFromQRCodeBlob(blob)
+            .then((url) => {
+              if (history.length === 0) {
                 setHistory([{ url: url }, ...history])
+              } else {
+                if (history[0].url !== url) {
+                  setHistory([{ url: url }, ...history])
+                }
               }
-            }
-            if (!window.open(url)) {
-              location.href = url;
-            }
-          })
-          .catch((error) => {
-            alert("QRコードを検出できませんでした。");
-          });
+              if (!window.open(url)) {
+                location.href = url;
+              }
+            })
+            .catch((error) => {
+              alert("QRコードを検出できませんでした。");
+            });
+          }
         }
       }
     } catch (err) {
