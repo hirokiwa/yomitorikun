@@ -1,25 +1,29 @@
-import jsQR from "jsqr";
+import jsQR, { QRCode } from "jsqr";
 import { Dispatch, SetStateAction, useState } from "react";
+
+const initQrCode = ( QRImage: HTMLImageElement ): QRCode | null => {
+  const canvas = document.createElement('canvas');
+  canvas.width = QRImage.width;
+  canvas.height = QRImage.height;
+  const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+  context.drawImage(QRImage, 0, 0);
+  const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  return jsQR(imageData.data, imageData.width, imageData.height);
+}
 
 const useReadSection = ({ history, setHistory }: {
   history: urlHistory[];
   setHistory: Dispatch<SetStateAction<urlHistory[]>>;
 }) => {
   
- const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
+const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const QRImage = new Image();
       QRImage.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = QRImage.width;
-        canvas.height = QRImage.height;
-        const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-        context.drawImage(QRImage, 0, 0);
         try {
-          const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-          const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
+          const qrCode = initQrCode( QRImage );
           if (qrCode) {
             resolve(qrCode.data);
           } else {
