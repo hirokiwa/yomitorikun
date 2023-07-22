@@ -38,42 +38,42 @@ const useReadSection = ({ history, setHistory }: {
         reject(error);
       }
       reader.readAsDataURL(blob);
-  })}
-
-  const isImageData = (data: Blob): boolean => {
-    return data.type.startsWith('image/');
+    })
   }
-
-  async function getClipboardContents() {
-    try {
-      const clipboardItems = await navigator.clipboard.read();
-      for (const clipboardItem of clipboardItems) {
-        for (const type of clipboardItem.types) {
-          const blob = await clipboardItem.getType(type);
-          const isImage = isImageData(blob);
-          if (isImage) {
-            getURLFromQRCodeBlob(blob)
-            .then((url) => {
-              if (history.length === 0) {
-                setHistory([{ url: url }, ...history])
-              } else {
-                if (history[0].url !== url) {
-                  setHistory([{ url: url }, ...history])
-                }
-              }
-              if (!window.open(url)) {
-                location.href = url;
-              }
-            })
-            .catch((error) => {
-              alert("QRコードを検出できませんでした。");
-            });
-          }
+  
+  const solveQrCode = (blob: Blob) => {
+    getURLFromQRCodeBlob(blob)
+    .then((url) => {
+      if (history.length === 0) {
+        setHistory([{ url: url }, ...history])
+      } else {
+        if (history[0].url !== url) {
+          setHistory([{ url: url }, ...history])
         }
       }
-    } catch (err) {
-      alert("クリップボードにQRコード画像をコピーしてください。");
+      if (!window.open(url)) {
+        location.href = url;
+      }
+    })
+    .catch((error) => {
+      alert("QRコードを検出できませんでした。");
+    });
+  }
+
+  const getClipboardContents = async () => {
+    const clipboardItems = await navigator.clipboard.read();
+    for (const clipboardItem of clipboardItems) {
+      for (const type of clipboardItem.types) {
+        const blob = await clipboardItem.getType(type);
+        const isImage = blob.type.startsWith('image/');
+        if (!isImage) {
+          continue;
+        }
+        solveQrCode(blob);
+        return;
+      }
     }
+    alert("クリップボードにQRコード画像をコピーしてください。");
   }
   return { getClipboardContents };
 }
