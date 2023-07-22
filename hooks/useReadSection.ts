@@ -39,47 +39,47 @@ const getURLFromQRCodeBlob = (blob: Blob): Promise<string> => {
       reject(error);
     }
     reader.readAsDataURL(blob);
-})}
+  })}
 
-const isImageData = (data: Blob): boolean => {
-  return data.type.startsWith('image/');
-}
-
-async function getClipboardContents() {
-  try {
-    const clipboardItems = await navigator.clipboard.read();
-    for (const clipboardItem of clipboardItems) {
-      for (const type of clipboardItem.types) {
-        const blob = await clipboardItem.getType(type);
-        const isImage = isImageData(blob);
-        if (!isImage) {
-          alert("クリップボードにQRコード画像をコピーしてください。");
-          return
-        }
-        getURLFromQRCodeBlob(blob)
-        .then((url) => {
-          if (history.length === 0) {
-            setHistory([{ url: url }, ...history])
-          } else {
-            if (history[0].url !== url) {
-              setHistory([{ url: url }, ...history])
-            }
-          }
-          if (!window.open(url)) {
-            location.href = url;
-          }
-        })
-        .catch((error) => {
-          alert("QRコードを検出できませんでした。");
-        });
-      }
-    }
-  } catch (err) {
-    alert("クリップボードにQRコード画像をコピーしてください。");
+  const isImageData = (data: Blob): boolean => {
+    return data.type.startsWith('image/');
   }
-}
+
+  async function getClipboardContents() {
+    try {
+      const clipboardItems = await navigator.clipboard.read();
+      for (const clipboardItem of clipboardItems) {
+        for (const type of clipboardItem.types) {
+          const blob = await clipboardItem.getType(type);
+          const isImage = isImageData(blob);
+          if (!isImage) {
+            alert("クリップボードにQRコード画像をコピーしてください。");
+            return
+          }
+          getURLFromQRCodeBlob(blob)
+          .then((url) => {
+            if (history.length === 0) {
+              setHistory([{ url: url }, ...history])
+            } else {
+              if (history[0].url !== url) {
+                setHistory([{ url: url }, ...history])
+              }
+            }
+            if (!window.open(url)) {
+              location.href = url;
+            }
+          })
+          .catch((error) => {
+            alert("QRコードを検出できませんでした。");
+          });
+        }
+      }
+    } catch (err) {
+      alert("クリップボードにQRコード画像をコピーしてください。");
+    }
+  }
  
- return { getClipboardContents };
+  return { getClipboardContents };
 }
 
 export default useReadSection;
