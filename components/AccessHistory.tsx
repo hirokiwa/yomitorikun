@@ -38,7 +38,7 @@ const AccessHistoryTop = styled.div`
   margin-top: 2em;
   margin: 3em auto;
   padding: 0 auto;
-`
+  `
 
 const SubTitle = styled.h2`
   border-bottom: solid 1px #acacac;
@@ -46,10 +46,12 @@ const SubTitle = styled.h2`
   padding-left: 0.5em;
   display: flex;
   align-items: center;
-`
+  `
 const AccessHistoryLists = styled.ul`
   text-align: left;
   padding: 1em;
+  overflow-y: auto;
+  height: 80vh;
 `
 
 const AccessHistoryElement = styled.li`
