@@ -1,5 +1,5 @@
 import jsQR, { QRCode } from "jsqr";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 const initQrCode = ( QRImage: HTMLImageElement ): QRCode | null => {
   const canvas = document.createElement('canvas');
@@ -40,15 +40,25 @@ const useReadSection = ({ history, setHistory }: {
       reader.readAsDataURL(blob);
     })
   }
+
+  const updateHistory = (url: string) => {
+    if (history.length < 50) {
+      setHistory([{ url: url }, ...history]);
+    } else {
+      const newHistory = history.slice(0, 49);
+      newHistory.unshift({ url: url });
+      setHistory( newHistory );
+    }
+  }
   
   const solveQrCode = (blob: Blob) => {
     getURLFromQRCodeBlob(blob)
     .then((url) => {
       if (history.length === 0) {
-        setHistory([{ url: url }, ...history])
+        updateHistory( url );
       } else {
         if (history[0].url !== url) {
-          setHistory([{ url: url }, ...history])
+          updateHistory( url );
         }
       }
       if (!window.open(url)) {
