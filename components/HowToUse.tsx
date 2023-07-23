@@ -24,6 +24,9 @@ const HowToUseTop = styled.div`
     margin: 0 auto;
     width: 35em;
     padding: 0 auto;
+    @media(max-width: 35em){
+        width: 100%
+    }
 `
 
 const SubTitle = styled.h2`
@@ -32,10 +35,16 @@ const SubTitle = styled.h2`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media(max-width:900px){
+        margin: 0 0.5em;
+    }
 `
 const HowToUseLists = styled.ol`
     text-align: left;
     padding: 1em 3em;
+    @media(max-width:900px){
+        padding: 1em 1em 1em 2em;
+    }
 `
 
 const HotToUseElement = styled.li`
