@@ -52,6 +52,7 @@ const AccessHistoryLists = styled.ul`
   padding: 1em;
   overflow-y: auto;
   height: 80vh;
+  overflow: visible;
 `
 
 const AccessHistoryElement = styled.li`
