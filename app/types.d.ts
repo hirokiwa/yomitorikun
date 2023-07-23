@@ -30,3 +30,7 @@ interface iconSetting {
     width?: string;
     fill?: string;
 }
+
+interface copiedMessageTokenType {
+    timerId: number;
+}
