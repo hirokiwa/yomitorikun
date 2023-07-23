@@ -1,12 +1,14 @@
 import { styled } from "styled-components";
 import SccessHistoryElement from "./AccessHistoryElement";
 import HistoryIcon from "./SvgHandler";
+import { useState } from "react";
 
 interface Props {
   history: urlHistory[];
 }
 
 const AccessHistory = ({ history }: Props) => {
+  const [copiedMessageToken, setCopiedMessageToken] = useState<copiedMessageTokenType>({timerId: 0});
 
   return (
     <AccessHistoryTop>
@@ -22,6 +24,8 @@ const AccessHistory = ({ history }: Props) => {
               <AccessHistoryElementWraper key = { `history${history.length - index}` }>
                 <SccessHistoryElement
                   url = {data.url}
+                  copiedMessageToken = {copiedMessageToken}
+                  setCopiedMessageToken = {setCopiedMessageToken}
                 />
               </AccessHistoryElementWraper>
           )})
@@ -38,7 +42,10 @@ const AccessHistoryTop = styled.div`
   margin-top: 2em;
   margin: 3em auto;
   padding: 0 auto;
-  `
+  @media(max-width: 900px){
+    max-width: 35em;
+  }
+`
 
 const SubTitle = styled.h2`
   border-bottom: solid 1px #acacac;
@@ -46,13 +53,21 @@ const SubTitle = styled.h2`
   padding-left: 0.5em;
   display: flex;
   align-items: center;
-  `
+  @media(max-width: 900px){
+    justify-content: center;
+    padding: 0;
+    margin: 0 0.5em;
+  }
+`
 const AccessHistoryLists = styled.ul`
   text-align: left;
   padding: 1em;
-  overflow-y: auto;
   height: 80vh;
-`
+  overflow-y: scroll;
+  @media(max-width: 900px){
+    height: auto;
+  }
+  `
 
 const AccessHistoryElement = styled.li`
   color: #858585;

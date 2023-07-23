@@ -39,6 +39,7 @@ export default Home;
 const BodyContentAreaWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(12, [col-start] 1fr);
+  grid-auto-rows: minmax(0, auto);
   gap: 1em;
   width: 100%;
   max-width: 1250px;
@@ -46,11 +47,17 @@ const BodyContentAreaWrapper = styled.div`
 
 const BodyContentArea = styled.div`
   text-align: center;
-  grid-column: col-start 5 / span 6;
-  grid-row: 1 / 2;
-  `
+  grid-column: 4 / 13;
+  @media (max-width: 900px) {
+    grid-row: 1 / 2;
+    grid-column: 1/13;
+  }
+`
 const SideContentsArea = styled.div`
   grid-column: 1 / 4;
-  grid-column: col-start / span 3;
-  grid-row: 1 / 2;
+  min-width: 300px;
+  @media (max-width: 900px) {
+    grid-row: 2 / 3;
+    grid-column: 1/13;
+  }
 `
