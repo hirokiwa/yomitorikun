@@ -1,12 +1,14 @@
 import { styled } from "styled-components";
 import SccessHistoryElement from "./AccessHistoryElement";
 import HistoryIcon from "./SvgHandler";
+import { useState } from "react";
 
 interface Props {
   history: urlHistory[];
 }
 
 const AccessHistory = ({ history }: Props) => {
+  const [copiedMessageToken, setCopiedMessageToken] = useState<copiedMessageTokenType>({timerId: 0});
 
   return (
     <AccessHistoryTop>
@@ -22,6 +24,8 @@ const AccessHistory = ({ history }: Props) => {
               <AccessHistoryElementWraper key = { `history${history.length - index}` }>
                 <SccessHistoryElement
                   url = {data.url}
+                  copiedMessageToken = {copiedMessageToken}
+                  setCopiedMessageToken = {setCopiedMessageToken}
                 />
               </AccessHistoryElementWraper>
           )})

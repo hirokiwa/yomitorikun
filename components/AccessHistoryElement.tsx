@@ -1,17 +1,20 @@
 import useAccessHistoryElement from "@/hooks/useAccessHistoryElement";
 import { styled } from "styled-components"
 import { ContentCopyIcon, LibraryAddCheckIcon } from "./SvgHandler";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   url: string;
+  copiedMessageToken: copiedMessageTokenType;
+  setCopiedMessageToken: Dispatch<SetStateAction<copiedMessageTokenType>>;
 }
 
-const SccessHistoryElement = ({ url }: Props) => {
+const SccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken }: Props) => {
   const { copiedTimer, copyToClipboard }: {
     copiedTimer: copiedTimerType;
     copyToClipboard: (text: string) => void;
-  } = useAccessHistoryElement();
-  
+  } = useAccessHistoryElement({ copiedMessageToken, setCopiedMessageToken });
+
   return (
     <SccessHistoryElementTop>
       <AccessHistoryLink
