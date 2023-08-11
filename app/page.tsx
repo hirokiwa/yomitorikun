@@ -8,9 +8,11 @@ import Footer from '@/components/Footer';
 import AccessHistory from '@/components/AccessHistory';
 import ReadSection from '@/components/ReadSection';
 import useHome from '@/hooks/useHome';
+import { useRef } from 'react';
 
 const Home = () => {
   const { history, setHistory } = useHome();
+  const bodyContentRef = useRef<HTMLDivElement>(null);
 
   return (
     <main className={styles.main}>
@@ -19,6 +21,7 @@ const Home = () => {
         <SideContentsArea>
           <AccessHistory
             history = {history}
+            bodyContentRef = {bodyContentRef}
           />
         </SideContentsArea>
         <BodyContentArea>

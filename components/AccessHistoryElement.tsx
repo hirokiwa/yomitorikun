@@ -1,29 +1,44 @@
 import useAccessHistoryElement from "@/hooks/useAccessHistoryElement";
 import { styled } from "styled-components"
 import { ContentCopyIcon, LibraryAddCheckIcon } from "./SvgHandler";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, RefObject, SetStateAction, useRef } from "react";
+import { useGetElementProperty } from "@/hooks/useGerElementProperty";
 
 interface Props {
   url: string;
   copiedMessageToken: copiedMessageTokenType;
   setCopiedMessageToken: Dispatch<SetStateAction<copiedMessageTokenType>>;
+  getStartAtTop: () => number;
+  copiedMessageRef: RefObject<HTMLDivElement>;
 }
 
-const SccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken }: Props) => {
+const SccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken, getStartAtTop, copiedMessageRef }: Props) => {
+  const accessHistoryElementRef = useRef<HTMLDivElement>(null);
   const { copiedTimer, copyToClipboard }: {
     copiedTimer: copiedTimerType;
     copyToClipboard: (text: string) => void;
-  } = useAccessHistoryElement({ copiedMessageToken, setCopiedMessageToken });
+  } = useAccessHistoryElement({ copiedMessageToken, setCopiedMessageToken, accessHistoryElementRef, getStartAtTop, copiedMessageRef });
+  const { getElementProperty } = useGetElementProperty<HTMLDivElement>(accessHistoryElementRef);
+
+  if (copiedMessageRef.current) {
+    copiedMessageRef.current.style.left = `${getElementProperty("right")}px`
+  }
+
+  const CopyIconClickHandler = () => {
+    copyToClipboard(url); 
+  }
 
   return (
-    <SccessHistoryElementTop>
+    <SccessHistoryElementTop
+      ref = {accessHistoryElementRef}
+    >
       <AccessHistoryLink
         href={url}
         target="_blank"
         tabIndex={2}
       >{url}</AccessHistoryLink>
       <CopyIconWrapper
-        onClick={() => { copyToClipboard(url) }}
+        onClick={() => { CopyIconClickHandler() }}
         tabIndex={2}
       >
         {
@@ -31,9 +46,6 @@ const SccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken }
           ? <LibraryAddCheckIcon width="28" height="28" fill="#858585" />
           : <ContentCopyIcon width="28" height="28" fill="#858585" />
         }
-        <CopiedMessage
-          copied={ +copiedTimer.copied as 0 | 1 }
-        >Copied!!</CopiedMessage>
       </CopyIconWrapper>
     </SccessHistoryElementTop>
   )
@@ -67,21 +79,7 @@ const CopyIconWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   &:hover{
     background-color: #e6e6e6;
   }
   `
-
-const CopiedMessage = styled.div<{
-  copied: 0 | 1;
-}>`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  left: 110%;
-  font-size: medium;
-  display: ${({ copied }) => copied ? "block" : "none" };
-`
