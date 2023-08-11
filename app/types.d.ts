@@ -33,4 +33,6 @@ interface iconSetting {
 
 interface copiedMessageTokenType {
     timerId: number;
+    topAtStart: number;
+    firstMessagePositionTop: number;
 }
