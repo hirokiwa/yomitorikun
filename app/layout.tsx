@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'コピペでQR読み取りくん',
   description: 'クリップボードにコピーされたQRコード画像を瞬時に読み取ります。',
+  other: {
+    "google-site-verification": "OQR6sBzaqw-kt3cOSRfScDpTtjhc_-iigbyDlecvKJc",
+  }
 }
 
 const RootLayout = ({
