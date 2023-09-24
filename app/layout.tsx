@@ -11,6 +11,7 @@ export const metadata = {
     "google-site-verification": "OQR6sBzaqw-kt3cOSRfScDpTtjhc_-iigbyDlecvKJc",
   }
 }
+export const dynamic = 'force-dynamic'
 
 const RootLayout = ({
   children,
