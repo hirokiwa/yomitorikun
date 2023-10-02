@@ -27,19 +27,15 @@ const AccessHistory = ({ history, bodyContentRef }: Props) => {
 
   const isCopiedMessageInRange = (messageTopValue: number): boolean => {
     if (!historyTitleRef.current) {
-      console.log("aaaaaaaaaaaaaaaaaaaa")
       return false;
     }
     if (!bodyContentRef.current) {
-      console.log("bbbbbbbbbbbbbbbbbbbbbbbb")
       return false;
     }
     if ( historyTitleRef.current.getClientRects()[0].bottom < messageTopValue) {
-      console.log("ccccccccccccccccccccccccccccc")
       return false;
     }
     // if ( bodyContentRef.current.getClientRects()[0].bottom <= messageTopValue ) {
-    //   console.log("ddddddddddddddddddddddddddd")
       // return false;
     // }
     return true;
