@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
-import SccessHistoryElement from "./AccessHistoryElement";
+import AccessHistoryElement from "./AccessHistoryElement";
 import HistoryIcon from "./SvgHandler";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { useGetElementProperty } from "@/hooks/useGerElementProperty";
 
 interface Props {
@@ -25,76 +25,6 @@ const AccessHistory = ({ history, bodyContentRef }: Props) => {
     return getElementProperty("top");
   }
 
-  const isCopiedMessageInRange = (messageTopValue: number): boolean => {
-    if (!historyTitleRef.current) {
-      console.log("aaaaaaaaaaaaaaaaaaaa")
-      return false;
-    }
-    if (!bodyContentRef.current) {
-      console.log("bbbbbbbbbbbbbbbbbbbbbbbb")
-      return false;
-    }
-    if ( historyTitleRef.current.getClientRects()[0].bottom < messageTopValue) {
-      console.log("ccccccccccccccccccccccccccccc")
-      return false;
-    }
-    // if ( bodyContentRef.current.getClientRects()[0].bottom <= messageTopValue ) {
-    //   console.log("ddddddddddddddddddddddddddd")
-      // return false;
-    // }
-    return true;
-  }
-
-  const updateMessagePosition = () => {
-    console.log("called")
-    if (!copiedMessageRef.current) {
-      return
-    }
-    if (!historyTitleRef.current) {
-      return
-    }
-    const messageTopValue = getElementProperty("top") - copiedMessageToken.topAtStart + copiedMessageToken.firstMessagePositionTop + window.scrollY;
-    copiedMessageRef.current.style.top = `${messageTopValue}px`;
-
-    // if ( historyTitleRef.current.getClientRects()[0].bottom > messageTopValue ) {
-    if ( isCopiedMessageInRange(messageTopValue) ) {
-      copiedMessageRef.current.style.display = `none`;
-    } else {
-      copiedMessageRef.current.style.display = `block`;
-    }
-  }
-
-  const switchDisplay = (display: boolean): void => {
-    if(!scrollParentRef.current){
-      return;
-    }
-    if ( display ) {
-      scrollParentRef.current.addEventListener("scroll", updateMessagePosition, true);
-    } else {
-      scrollParentRef.current.removeEventListener("scroll", updateMessagePosition, true);
-    }
-  }
-  
-  // useEffect(() => {
-  //   console.log("Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-  //   if(!scrollParentRef.current){
-  //     return;
-  //   }
-  //   if(!copiedMessageRef.current){
-  //     return;
-  //   }
-    
-  //   if (copiedMessageToken.timerId !== 0) {
-  //     scrollParentRef.current.addEventListener("scroll", updateMessagePosition, true);
-  //     console.log("added!")
-  //     copiedMessageRef.current.style.display = `block`;
-  //   } else {
-  //     scrollParentRef.current.removeEventListener("scroll", updateMessagePosition, true);
-  //     console.log("removed!")
-  //     copiedMessageRef.current.style.display = `none`;
-  //   }
-  // }, [copiedMessageToken.timerId])
-
   return (
     <AccessHistoryTop
       ref={bodyContentRef}
@@ -116,7 +46,7 @@ const AccessHistory = ({ history, bodyContentRef }: Props) => {
           ? history.map((data, index) => {
             return(
               <AccessHistoryElementWraper key = { `history${history.length - index}` }>
-                <SccessHistoryElement
+                <AccessHistoryElement
                   url = {data.url}
                   copiedMessageToken = {copiedMessageToken}
                   setCopiedMessageToken = {setCopiedMessageToken}
@@ -125,7 +55,7 @@ const AccessHistory = ({ history, bodyContentRef }: Props) => {
                   />
               </AccessHistoryElementWraper>
           )})
-          : <AccessHistoryElement>履歴はありません。</AccessHistoryElement>
+          : <NoHistoryElement>履歴はありません。</NoHistoryElement>
         }
         </AccessHistoryListChildren>
       </AccessHistoryLists>
@@ -170,7 +100,7 @@ const AccessHistoryLists = styled.ul`
   }
   `
 
-const AccessHistoryElement = styled.li`
+const NoHistoryElement = styled.li`
   color: #858585;
   margin: 1em;
   list-style: none;
