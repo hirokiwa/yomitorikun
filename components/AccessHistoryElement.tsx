@@ -1,8 +1,8 @@
-import useAccessHistoryElement from "@/hooks/useAccessHistoryElement";
 import { styled } from "styled-components"
 import { ContentCopyIcon, LibraryAddCheckIcon } from "./SvgHandler";
-import { Dispatch, RefObject, SetStateAction, useRef } from "react";
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import { useGetElementProperty } from "@/hooks/useGerElementProperty";
+import { wrightTextToClipboard } from "@/utils/clipboard";
 
 interface Props {
   url: string;
@@ -12,20 +12,64 @@ interface Props {
   copiedMessageRef: RefObject<HTMLDivElement>;
 }
 
-const SccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken, getStartAtTop, copiedMessageRef }: Props) => {
+const AccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken, getStartAtTop, copiedMessageRef }: Props) => {
   const accessHistoryElementRef = useRef<HTMLDivElement>(null);
-  const { copiedTimer, copyToClipboard }: {
-    copiedTimer: copiedTimerType;
-    copyToClipboard: (text: string) => void;
-  } = useAccessHistoryElement({ copiedMessageToken, setCopiedMessageToken, accessHistoryElementRef, getStartAtTop, copiedMessageRef });
+  const [copiedTimer, setCopiedTimer] = useState<copiedTimerType>({
+    copied: false,
+    timerId: undefined,
+  });
+
+  const clearCopiedTimer = () => {
+    setCopiedTimer({
+      copied: false,
+      timerId: undefined
+    })
+    setCopiedMessageToken({
+      timerId: 0,
+      topAtStart: 0,
+      firstMessagePositionTop: 0
+    })
+  }
+
+  useEffect(() => {
+    if (copiedMessageToken.timerId !== copiedTimer.timerId && copiedMessageToken.timerId !== 0) {
+      setCopiedTimer({
+        copied: false,
+        timerId: undefined
+      })
+    }
+  }, [copiedMessageToken.timerId])
+
   const { getElementProperty } = useGetElementProperty<HTMLDivElement>(accessHistoryElementRef);
 
   if (copiedMessageRef.current) {
     copiedMessageRef.current.style.left = `${getElementProperty("right")}px`
   }
 
-  const CopyIconClickHandler = () => {
-    copyToClipboard(url); 
+  const copyIconClickHandler = () => {
+    if (wrightTextToClipboard(url) === "failed") {
+      alert("クリップボードにコピーできませんでした。");
+      return;
+    }
+
+    if (copiedMessageToken.timerId) {
+      window.clearTimeout(copiedMessageToken.timerId);
+    }
+      
+    if (copiedMessageRef.current) {
+      copiedMessageRef.current.style.top = `${getElementProperty("top") + window.scrollY}px`
+    }
+
+    const newTimer = window.setTimeout(clearCopiedTimer, 2000);
+    setCopiedTimer({
+      copied: true,
+      timerId: newTimer
+    })
+    setCopiedMessageToken({
+      timerId: newTimer,
+      topAtStart: getStartAtTop(),
+      firstMessagePositionTop: getElementProperty("top")
+    })
   }
 
   return (
@@ -38,7 +82,7 @@ const SccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken, 
         tabIndex={2}
       >{url}</AccessHistoryLink>
       <CopyIconWrapper
-        onClick={() => { CopyIconClickHandler() }}
+        onClick={ copyIconClickHandler }
         tabIndex={2}
       >
         {
@@ -51,7 +95,7 @@ const SccessHistoryElement = ({ url, copiedMessageToken, setCopiedMessageToken, 
   )
 }
 
-export default SccessHistoryElement;
+export default AccessHistoryElement;
 
 const SccessHistoryElementTop = styled.div`
   display: flex;
