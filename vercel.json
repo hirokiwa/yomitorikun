@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "https://yomitorikun.hirokiwa.com", "permanent": true }
+  ]
+}
