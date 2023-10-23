@@ -1,3 +1,10 @@
+**こちらはコピペでQR読み取りくん旧バージョンのディレクトリです。**
+
+Next.jsからvanilla TypeScriptへのリプレイスに伴い、<br>
+[GitHub / Yomitorikun Light](https://github.com/hirokiwa/yomitorikun-light) に移行しました。
+
+---
+
 ## コピペでQR読み取りくん
 **クリップボードにコピーしたQRコード画像を瞬時に読み取る便利ツール**
 
